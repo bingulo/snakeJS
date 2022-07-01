@@ -1,3 +1,8 @@
-# snakeSpeedCode
+# snakeJS
+Simple snake game using html and plain javascript
 
-This is the code for the snake game I wrote during a speed coding challenge I did on Hungry Turtle Code.
+# TODO
+- [ ] Comment code
+- [ ] Implement only left and right moves
+- [ ] Implement score
+- [ ] Improve page style
