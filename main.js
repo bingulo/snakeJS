@@ -13,9 +13,13 @@ const BORDA = canvas.width / SIZE; //tamanho da borda do mapa
 
 let pos, vel, food, snake;
 
+ var dir = 4000002; //variavel que controla a direção da cobra 
+
 function init(){ //lista da posição inicial da cobra 
   pos = {x: 10, y: 10};
   vel = {x: 0, y: 0};
+
+   dir = 40000002;
 
   snake = [ //lista das celulas da cobra 
     {x: 8, y: 10},
@@ -44,38 +48,31 @@ function randomFood(){
 document.addEventListener('keydown', keydown);
 
 function keydown(e){
-  switch(e.keyCode) {
-    case 37: {
-      return vel = {x: -1, y: 0}
-    }
-    case 38: {
-      return vel = {x: 0, y: -1}
+  switch(e.keyCode) { //direção da cobra, os botões de controle são direita e esquerda 
+    case 37: { 
+      dir = dir -1;
+      break;
     }
     case 39: {
-      return vel = {x: 1, y: 0}
+      dir = dir +1;
+      break;
     }
-    case 40: {
-      return vel = {x: 0, y: 1}
-    }
+  }
+  if(dir%4 == 0){
+    return vel = {x: -1, y: 0}
+  }
+  if(dir%4 == 1){
+    return vel = {x: 0, y: -1}
+  }
+  if(dir%4 == 2){
+    return vel = {x: 1, y: 0}
+  }
+  if(dir%4 == 3){
+    return vel = {x: 0, y: 1}
   }
 }
 
-/*
-function keydown(e){
-  switch(e.keyCode) {
 
-    
-    case 37: {
-      dir =- dir 
-    }
-    case 39: {
-      dir =-
-    }
-   
-  }
-}
-
-*/
 
 setInterval(() => {
   requestAnimationFrame(gameLoop); //atualiza o jogo a um framerate 
@@ -96,7 +93,7 @@ function gameLoop(){
   pos.x += vel.x; //movimento, faz proxima posição 
   pos.y += vel.y;
 
-  if (pos.x < 0 || pos.x > BORDA || pos.y < 0 || pos.y > BORDA) { //se toca nas bordas, reinicia o jogo
+  if (pos.x < 0 || pos.x > BORDA-1 || pos.y < 0 || pos.y > BORDA-1) { //se toca nas bordas, reinicia o jogo
     init();
   }
 
