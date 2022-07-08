@@ -5,19 +5,19 @@ const FOOD_COLOUR = '#e66916';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = canvas.height =400;
+canvas.width = canvas.height =400; //tamanho da tela 
 
-const FR = 10;
-const S = 20;
-const T = canvas.width / S;
+const FRAMERATE = 10; //framerate
+const SIZE = 20;  //grossura da cobra
+const BORDA = canvas.width / SIZE; //tamanho da borda do mapa 
 
 let pos, vel, food, snake;
 
-function init(){
+function init(){ //lista da posição inicial da cobra 
   pos = {x: 10, y: 10};
   vel = {x: 0, y: 0};
 
-  snake = [
+  snake = [ //lista das celulas da cobra 
     {x: 8, y: 10},
     {x: 9, y: 10},
     {x: 10, y: 10},
@@ -30,12 +30,12 @@ init();
 
 function randomFood(){
   food = {
-    x: Math.floor(Math.random() * T),
-    y: Math.floor(Math.random() * T),
+    x: Math.floor(Math.random() * BORDA), //gera posição da comida nova, dentro das bordas
+    y: Math.floor(Math.random() * BORDA),
   }
 
   for (let cell of snake) {
-    if(cell.x === food.x && food.y === cell.y) {
+    if(cell.x === food.x && food.y === cell.y) { //checa se a comida gerada não esta na mesma posição da cobra  
       return randomFood();
     }
   }
@@ -60,26 +60,43 @@ function keydown(e){
   }
 }
 
+/*
+function keydown(e){
+  switch(e.keyCode) {
+
+    
+    case 37: {
+      dir =- dir 
+    }
+    case 39: {
+      dir =-
+    }
+   
+  }
+}
+
+*/
+
 setInterval(() => {
-  requestAnimationFrame(gameLoop);
-}, 1000 /FR);
+  requestAnimationFrame(gameLoop); //atualiza o jogo a um framerate 
+}, 1000 /FRAMERATE);
 
 function gameLoop(){
   ctx.fillStyle = BG_COLOUR;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height); //preenche a arena do jogo
 
   ctx.fillStyle = SNAKE_COLOUR;
   for (let cell of snake) {
-    ctx.fillRect(cell.x*S, cell.y*S, S,S);
+    ctx.fillRect(cell.x*SIZE, cell.y*SIZE, SIZE,SIZE); //preenche a cobra 
   }
 
   ctx.fillStyle = FOOD_COLOUR;
-  ctx.fillRect(food.x*S,food.y*S,S,S);
+  ctx.fillRect(food.x*SIZE,food.y*SIZE,SIZE,SIZE); //preenche a comida 
 
-  pos.x += vel.x;
+  pos.x += vel.x; //movimento, faz proxima posição 
   pos.y += vel.y;
 
-  if (pos.x < 0 || pos.x > T || pos.y < 0 || pos.y > T) {
+  if (pos.x < 0 || pos.x > BORDA || pos.y < 0 || pos.y > BORDA) { //se toca nas bordas, reinicia o jogo
     init();
   }
 
@@ -92,11 +109,11 @@ function gameLoop(){
 
   if (vel.x || vel.y) {
     for (let cell of snake) {
-      if (cell.x === pos.x && cell.y === pos.y) {
+      if (cell.x === pos.x && cell.y === pos.y) { //se a cobra toca nela mesma, reinicia o jogo
         return init();
       }
     }
-    snake.push({...pos});
-    snake.shift();
+    snake.push({...pos}); //coloca um elemento no final da lista
+    snake.shift(); //remove o elemento do começo da lista 
   }
 }
