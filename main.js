@@ -5,6 +5,8 @@ const FOOD_COLOUR = '#e66916';
 const canvas = document.getElementById('main_canvas');
 const ctx = canvas.getContext('2d');
 
+canvas.width = canvas.height =400; //tamanho da tela 
+
 const FRAMERATE = 10; //framerate
 const SIZE = 20;  //grossura da cobra
 const BORDA = canvas.width / SIZE; //tamanho da borda do mapa 
@@ -25,12 +27,11 @@ function init(){ //lista da posição inicial da cobra
     {x: 10, y: 10},
   ]
 
-    randomFood();
+  randomFood();
 }
 
 init();
 
-// Generate a food in a random place
 function randomFood(){
   food = {
     x: Math.floor(Math.random() * BORDA), //gera posição da comida nova, dentro das bordas
@@ -41,11 +42,11 @@ function randomFood(){
     if(cell.x === food.x && food.y === cell.y) { //checa se a comida gerada não esta na mesma posição da cobra  
       return randomFood();
     }
+  }
 }
 
 document.addEventListener('keydown', keydown);
 
-// Define what each key does
 function keydown(e){
   switch(e.keyCode) { //direção da cobra, os botões de controle são direita e esquerda 
     case 37: { 
@@ -71,11 +72,12 @@ function keydown(e){
   }
 }
 
+
+
 setInterval(() => {
   requestAnimationFrame(gameLoop); //atualiza o jogo a um framerate 
 }, 1000 /FRAMERATE);
 
-// Main game function
 function gameLoop(){
   ctx.fillStyle = BG_COLOUR;
   ctx.fillRect(0, 0, canvas.width, canvas.height); //preenche a arena do jogo
@@ -99,6 +101,8 @@ function gameLoop(){
     snake.push({...pos});
     pos.x += vel.x;
     pos.y += vel.y;
+    randomFood();
+  }
 
   if (vel.x || vel.y) {
     for (let cell of snake) {
