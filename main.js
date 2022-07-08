@@ -2,7 +2,7 @@ const BG_COLOUR = '#231f20';
 const SNAKE_COLOUR = '#c2c2c2';
 const FOOD_COLOUR = '#e66916';
 
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById('main_canvas');
 const ctx = canvas.getContext('2d');
 
 canvas.width = canvas.height = 400;
