@@ -3,18 +3,18 @@ const SNAKE_COLOUR = '#c2c2c2';
 const FOOD_COLOUR = '#e66916';
 
 // Canvas principal
-const canvas = document.getElementById('main_canvas');
-const ctx = canvas.getContext('2d');
+const main_canvas = document.getElementById('main_canvas');
+const ctx = main_canvas.getContext('2d');
 
 // Tamanho da tela do jogo
-canvas.width = canvas.height = 600;
+main_canvas.width = main_canvas.height = 600;
 const FRAMERATE = 10;
 
 // Tamanho das unidade
 const SIZE = 20;
 
 // Borda do mapa 
-const BORDA = canvas.width / SIZE;
+const BORDA = main_canvas.width / SIZE;
 
 let pos, vel, food, snake;
 
@@ -102,7 +102,7 @@ setInterval(() => {
 function gameLoop(){
     // Preenche o fundo da arena
     ctx.fillStyle = BG_COLOUR;
-    ctx.fillRect(0, 0, canvas.width, canvas.height); 
+    ctx.fillRect(0, 0, main_canvas.width, main_canvas.height); 
 
     // Preenche cada célula da cobra
     ctx.fillStyle = SNAKE_COLOUR;
