@@ -1,10 +1,17 @@
-const BG_COLOUR = '#231f20';
-const SNAKE_COLOUR = '#c2c2c2';
-const FOOD_COLOUR = '#e66916';
+const BG_COLOUR = '#231F20';
+const SNAKE_COLOUR = '#63A16F';
+const SNAKE_HEAD_COLOUR = '#B4CE59';
+const FOOD_COLOUR = '#A16395';
 
 // Canvas principal
 const main_canvas = document.getElementById('main_canvas');
 const ctx = main_canvas.getContext('2d');
+
+// Canvas score
+const score_canvas = document.getElementById('score_canvas');
+const score_ctx = score_canvas.getContext('2d');
+score_canvas.height = 600;
+score_canvas.width = score_canvas.height/2;
 
 // Tamanho da tela do jogo
 main_canvas.width = main_canvas.height = 600;
@@ -104,15 +111,22 @@ function gameLoop(){
     ctx.fillStyle = BG_COLOUR;
     ctx.fillRect(0, 0, main_canvas.width, main_canvas.height); 
 
+    score_ctx.fillStyle = BG_COLOUR;
+    score_ctx.fillRect(0, 0, score_canvas.width, score_canvas.height); 
+
     // Preenche cada célula da cobra
     ctx.fillStyle = SNAKE_COLOUR;
     for (let cell of snake) {
-        ctx.fillRect(cell.x*SIZE, cell.y*SIZE, SIZE,SIZE); 
+        ctx.fillRect(cell.x*SIZE, cell.y*SIZE, SIZE, SIZE); 
     }
+
+    ctx.fillStyle = SNAKE_HEAD_COLOUR;
+    console.log(snake.length);
+    ctx.fillRect(snake[snake.length - 1].x*SIZE, snake[snake.length - 1].y*SIZE, SIZE, SIZE); 
     
     // Preenche a comida 
     ctx.fillStyle = FOOD_COLOUR;
-    ctx.fillRect(food.x*SIZE,food.y*SIZE,SIZE,SIZE);
+    ctx.fillRect(food.x*SIZE, food.y*SIZE, SIZE, SIZE);
 
     pos.x += vel.x; 
     pos.y += vel.y;

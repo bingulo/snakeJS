@@ -1,4 +1,10 @@
 #main_canvas {
     width: 40em;
     height: 40em;
+    border: 0.5em solid #000000;
+}
+#score_canvas {
+    width: 20em;
+    height: 40em;
+    border: 0.5em solid #000000;
 }
