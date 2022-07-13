@@ -5,6 +5,8 @@
 }
 #score_canvas {
     width: 20em;
-    height: 40em;
+    height: 20em;
     border: 0.5em solid #000000;
+}
+#main_div {
 }

@@ -10,9 +10,8 @@ const ctx = main_canvas.getContext('2d');
 // Canvas score
 const score_canvas = document.getElementById('score_canvas');
 const score_ctx = score_canvas.getContext('2d');
-score_canvas.height = 600;
-score_canvas.width = score_canvas.height/2;
-score_ctx.font = "3em Monospace";
+score_canvas.height = score_canvas.width = 200;
+score_ctx.font = "2em Monospace";
 
 // Tamanho da tela do jogo
 main_canvas.width = main_canvas.height = 600;
@@ -120,10 +119,13 @@ function gameLoop(){
     score_ctx.fillStyle = BG_COLOUR;
     score_ctx.fillRect(0, 0, score_canvas.width, score_canvas.height); 
     score_ctx.fillStyle = FOOD_COLOUR;
-    score_ctx.fillText("SCORE:", 30, 60);
-    score_ctx.fillText(score, 30, 100);
-    score_ctx.fillText("HIGH SCORE:", 30, 160);
-    score_ctx.fillText(high_score, 30, 200);
+
+    scorew = score_canvas.width/6;
+    scoreh = (score_canvas.height - 30);
+    score_ctx.fillText("SCORE:", scorew, scoreh*1/4);
+    score_ctx.fillText(score, scorew, scoreh*2/4);
+    score_ctx.fillText("HIGH SCORE:", scorew, scoreh*3/4);
+    score_ctx.fillText(high_score,  scorew, scoreh);
 
     // Preenche cada célula da cobra
     ctx.fillStyle = SNAKE_COLOUR;
