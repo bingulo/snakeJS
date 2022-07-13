@@ -12,6 +12,7 @@ const score_canvas = document.getElementById('score_canvas');
 const score_ctx = score_canvas.getContext('2d');
 score_canvas.height = 600;
 score_canvas.width = score_canvas.height/2;
+score_ctx.font = "3em Monospace";
 
 // Tamanho da tela do jogo
 main_canvas.width = main_canvas.height = 600;
@@ -26,7 +27,8 @@ const BORDA = main_canvas.width / SIZE;
 let pos, vel, food, snake;
 
 // Variável que controla a direção da cobra 
-var dir;
+var dir, score
+var high_score = 0;
 
 function init(){ 
     // Posição inicial da cobra
@@ -34,7 +36,10 @@ function init(){
     vel = {x: 0, y: 0};
 
     dir = 2;
-
+    if (score > high_score){
+        high_score = score;
+    }
+    score = 0;
     // Celulas da cobra 
     snake = [ 
         {x: 8, y: 10},
@@ -111,8 +116,14 @@ function gameLoop(){
     ctx.fillStyle = BG_COLOUR;
     ctx.fillRect(0, 0, main_canvas.width, main_canvas.height); 
 
+    score = snake.length - 3;
     score_ctx.fillStyle = BG_COLOUR;
     score_ctx.fillRect(0, 0, score_canvas.width, score_canvas.height); 
+    score_ctx.fillStyle = FOOD_COLOUR;
+    score_ctx.fillText("SCORE:", 30, 60);
+    score_ctx.fillText(score, 30, 100);
+    score_ctx.fillText("HIGH SCORE:", 30, 160);
+    score_ctx.fillText(high_score, 30, 200);
 
     // Preenche cada célula da cobra
     ctx.fillStyle = SNAKE_COLOUR;
