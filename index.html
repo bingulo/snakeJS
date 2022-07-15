@@ -6,12 +6,15 @@
         <title>SnakeJS</title>
     </head>
     <body>
-        <div id="main_grid">
+        <div id="main">
             <canvas id="main_canvas"></canvas>
-            <div id="info">
-                <button id="mode_button">Modo</button>
-                <button id="mapa_button">Mapa</button>
-                <canvas id="score_canvas"></canvas>
+            <div class="info">
+                <div class="score">
+                    Score: <span id="score_value"></span><br/>
+                    High Score: <span id="high_score_value"></span>
+                </div>
+                <button id="mode_button">Modo: <span id="modo"></span></button>
+                <button id="mapa_button">Mapa: <span id="mapa"></span></button>
             </div>
         </div>
         <script src="main.js"></script>

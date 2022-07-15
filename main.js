@@ -7,11 +7,11 @@ const FOOD_COLOUR = '#A16395';
 const main_canvas = document.getElementById('main_canvas');
 const ctx = main_canvas.getContext('2d');
 
-// Canvas score
-const score_canvas = document.getElementById('score_canvas');
-const score_ctx = score_canvas.getContext('2d');
-score_canvas.height = score_canvas.width = 200;
-score_ctx.font = "2em Monospace";
+document.getElementById('mode_button').onclick = toggleMode;
+
+const modo_dom = document.getElementById('modo');
+var modo = 'tradicional';
+modo_dom.innerHTML = modo;
 
 // Tamanho da tela do jogo
 main_canvas.width = main_canvas.height = 600;
@@ -26,8 +26,18 @@ const BORDA = main_canvas.width / SIZE;
 let pos, vel, food, snake;
 
 // Variável que controla a direção da cobra 
-var dir, score
-var high_score = 0;
+var dir;
+
+var high_score = 0
+var score;
+const score_dom = document.getElementById('score_value');
+const high_score_dom = document.getElementById('high_score_value');
+
+function toggleMode() {
+    if (modo === 'tradicional') { modo = 'angular'; }
+    else if (modo === 'angular') { modo = 'tradicional'; }
+    modo_dom.innerHTML = modo;
+}
 
 function init(){ 
     // Posição inicial da cobra
@@ -37,6 +47,7 @@ function init(){
     dir = 2;
     if (score > high_score){
         high_score = score;
+        high_score_dom.innerHTML = high_score;
     }
     score = 0;
     // Celulas da cobra 
@@ -67,21 +78,40 @@ function randomFood(){
 
 document.addEventListener('keydown', keydown);
 function keydown(e){
-    switch(e.keyCode) {
-        // Tecla <-
-        case 37: { 
-            dir--;
-            break;
+    if (modo === 'angular') {
+        switch(e.keyCode) {
+            case 37: { 
+                dir--;
+                break;
+            }
+            case 39: {
+                dir++;
+                break;
+            }
         }
-        // Tecla ->
-        case 39: {
-            dir++;
-            break;
+        dir += 4;
+        dir %= 4;
+    }
+    else if (modo === 'tradicional') {
+        switch(e.keyCode) {
+            case 37: { 
+                if (dir != 2) { dir=0; }
+                break;
+            }
+            case 38: {
+                if (dir != 3) { dir=1; }
+                break;
+            }
+            case 39: {
+                if (dir != 0) { dir=2; }
+                break;
+            }
+            case 40: {
+                if (dir != 1) { dir=3; }
+                break;
+            }
         }
     }
-
-    dir += 4;
-    dir %= 4;
     switch(dir) {
         case 0: {
             // Esquerda
@@ -89,7 +119,7 @@ function keydown(e){
             break;
         }
         case 1: {
-            // Baixo
+            // Cima
             vel = {x: 0, y: -1};
             break;
         }
@@ -99,7 +129,7 @@ function keydown(e){
             break;
         }
         case 3: {
-            // Cima
+            // Baixo
             vel = {x: 0, y: 1}
             break;
         }
@@ -116,16 +146,7 @@ function gameLoop(){
     ctx.fillRect(0, 0, main_canvas.width, main_canvas.height); 
 
     score = snake.length - 3;
-    score_ctx.fillStyle = BG_COLOUR;
-    score_ctx.fillRect(0, 0, score_canvas.width, score_canvas.height); 
-    score_ctx.fillStyle = FOOD_COLOUR;
-
-    scorew = score_canvas.width/6;
-    scoreh = (score_canvas.height - 30);
-    score_ctx.fillText("SCORE:", scorew, scoreh*1/4);
-    score_ctx.fillText(score, scorew, scoreh*2/4);
-    score_ctx.fillText("HIGH SCORE:", scorew, scoreh*3/4);
-    score_ctx.fillText(high_score,  scorew, scoreh);
+    score_dom.innerHTML = score;
 
     // Preenche cada célula da cobra
     ctx.fillStyle = SNAKE_COLOUR;
@@ -134,7 +155,6 @@ function gameLoop(){
     }
 
     ctx.fillStyle = SNAKE_HEAD_COLOUR;
-    console.log(snake.length);
     ctx.fillRect(snake[snake.length - 1].x*SIZE, snake[snake.length - 1].y*SIZE, SIZE, SIZE); 
     
     // Preenche a comida 

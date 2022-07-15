@@ -1,35 +1,29 @@
+#main {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    column-gap: 20px;
+}
+
 #main_canvas {
-    width: 40em;
-    height: 40em;
-    border: 0.5em solid #000000;
-    grid-column: 1;
-    grid-row: 1;
 }
-#score_canvas {
-    width: 20em;
-    height: 20em;
-    border: 0.5em solid #000000;
-    grid-row: 1;
-    grid-column: 1;
+
+.info {
+    font-family: monospace;
 }
-#main_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+
+.score {
+    font-size: 2.2em;
+    background-color: #231f20;
+    color: #b4ce59;
+    padding: 20px;
 }
-#info {
-    display: grid;
-    grid-column: 2;
-    grid-row: 1;
-}
-#mode_button {
-    grid-column: 1;
-    grid-row: 2;
-}
-#mapa_button {
-    grid-column: 1;
-    grid-row: 3;
-}
+
 button {
-    color: #A16395;
-    background: #231F20;
+    font-family: monospace;
+    font-size: 2em;
+    background-color: #231f20;
+    color: #b4ce59;
+    padding: 20px;
+    margin: 10px;
 }
