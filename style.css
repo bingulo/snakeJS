@@ -27,3 +27,8 @@ button {
     padding: 20px;
     margin: 10px;
 }
+
+h1 {
+    font-size: 3em;
+    color: #b4ce59;
+}
