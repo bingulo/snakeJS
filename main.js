@@ -1,8 +1,8 @@
 const BG_COLOUR = '#231F20';
-const MAP_COLOUR = '#BBBBBB';
+const MAP_COLOUR = '#999999';
 const SNAKE_COLOUR = '#63A16F';
 const SNAKE_HEAD_COLOUR = '#B4CE59';
-const FOOD_COLOUR = '#A16395';
+const FOOD_COLOUR = '#9F2526';
 
 // Canvas principal
 const main_canvas = document.getElementById('main_canvas');
